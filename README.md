@@ -238,3 +238,7 @@ Default timezone is `Asia/Kuala_Lumpur` (configurable in **Settings**).
 - Do not commit production database credentials
 
 To reinstall: delete `install.lock`, drop the `website_monitoring` database in phpMyAdmin, then open the installer again.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
