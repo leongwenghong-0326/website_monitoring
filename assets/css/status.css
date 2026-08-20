@@ -134,12 +134,7 @@ body {
 .sp-footer {
     border-top: 1px solid var(--line); padding: 20px 0 32px; color: var(--muted); font-size: 13px;
 }
-.sp-footer .sp-wrap {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-}
+.sp-footer .sp-wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
 @media (max-width: 900px) {
     .sp-wrap { width: calc(100% - 24px); }
@@ -173,4 +168,9 @@ body {
     .uptime-summary { grid-template-columns: 1fr; }
     .legend { flex-direction: column; align-items: flex-start; gap: 8px; }
     .sp-header-actions button { flex: 1 1 100%; }
+}
+
+@media (max-width: 700px) {
+    .uptime-summary { grid-template-columns: 1fr 1fr; }
+    .service-row, .sp-header .sp-wrap { flex-direction: column; align-items: flex-start; }
 }

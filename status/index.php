@@ -1,9 +1,13 @@
 <?php
 require_once dirname(__DIR__) . '/includes/bootstrap.php';
 
+// Keep monitoring + Telegram alerts active even when admin is logged out.
+maybe_run_auto_check();
+
 $title = get_setting('status_page_title', 'Status page');
 $subtitle = get_setting('status_page_subtitle', 'Service status');
 $refreshSeconds = 60;
+$autoCheckInterval = max(5, (int) get_setting('auto_check_interval_seconds', '5'));
 
 $stmt = $pdo->query(
     "SELECT * FROM websites WHERE show_on_status_page = 1 ORDER BY name ASC"
@@ -95,6 +99,7 @@ function pct_text(?float $value): string
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="status-check-url" content="<?php echo e(url('status/check.php')); ?>" data-interval="<?php echo (int) $autoCheckInterval; ?>">
     <title><?php echo e($title); ?></title>
     <link rel="stylesheet" href="<?php echo e(url('assets/css/status.css')); ?>">
 </head>

@@ -51,10 +51,7 @@ document.querySelectorAll('form[data-confirm]').forEach(function (form) {
     }
 
     loadSavedLogin();
-
-    loginForm.addEventListener('submit', function () {
-        saveLogin();
-    });
+    loginForm.addEventListener('submit', saveLogin);
 })();
 
 (function () {
@@ -77,14 +74,14 @@ document.querySelectorAll('form[data-confirm]').forEach(function (form) {
     btn.addEventListener('click', function () {
         if (document.body.classList.contains('sidebar-open')) {
             closeMenu();
+            btn.setAttribute('aria-label', 'Open menu');
         } else {
             openMenu();
+            btn.setAttribute('aria-label', 'Close menu');
         }
     });
 
-    if (overlay) {
-        overlay.addEventListener('click', closeMenu);
-    }
+    if (overlay) overlay.addEventListener('click', closeMenu);
 
     document.querySelectorAll('.sidebar nav a').forEach(function (link) {
         link.addEventListener('click', function () {
@@ -127,9 +124,7 @@ document.querySelectorAll('form[data-confirm]').forEach(function (form) {
                     return;
                 }
                 setStatus('Auto-check: checked ' + data.checked + '/' + data.total, true);
-                if (data.alerts > 0) {
-                    window.location.reload();
-                }
+                if (data.alerts > 0) window.location.reload();
             })
             .catch(function () {
                 setStatus('Auto-check: offline', false);

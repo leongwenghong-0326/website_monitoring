@@ -9,6 +9,29 @@
         if (remaining <= 0) window.location.reload();
     }, 1000);
 
+    const checkMeta = document.querySelector('meta[name="status-check-url"]');
+    if (checkMeta) {
+        const checkUrl = checkMeta.getAttribute('content');
+        const checkInterval = Math.max(5, parseInt(checkMeta.getAttribute('data-interval') || '5', 10));
+
+        function runStatusCheck() {
+            fetch(checkUrl, {
+                credentials: 'same-origin',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    if (data.ok && !data.skipped && data.alerts > 0) {
+                        window.location.reload();
+                    }
+                })
+                .catch(function () {});
+        }
+
+        runStatusCheck();
+        setInterval(runStatusCheck, checkInterval * 1000);
+    }
+
     const fsBtn = document.getElementById('btn-fullscreen');
     if (fsBtn) {
         fsBtn.addEventListener('click', function () {

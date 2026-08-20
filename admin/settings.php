@@ -78,6 +78,7 @@ include INCLUDES_PATH . '/header.php';
             <label>Auto-check interval (seconds)</label>
             <input type="number" name="auto_check_interval_seconds" min="5" max="300" value="<?php echo e(get_setting('auto_check_interval_seconds', '5')); ?>">
             <p class="hint">How often the system checks websites automatically while admin is open (minimum 5 seconds). Set each website interval to 1 minute for faster UP/DOWN Telegram alerts.</p>
+            <p class="hint">When logged out, checks also run from the <a href="<?php echo e(url('status/')); ?>" target="_blank">public status page</a>. For 24/7 alerts with no browser open, set a server cron job to call the cron URL below every 1 minute.</p>
             <label>Timezone</label>
             <input type="text" name="timezone" value="<?php echo e(get_setting('timezone', 'Asia/Kuala_Lumpur')); ?>">
             <div class="form-actions">

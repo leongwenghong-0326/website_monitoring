@@ -12,12 +12,13 @@ $autoCheckInterval = max(5, (int) get_setting('auto_check_interval_seconds', '5'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="auto-check-url" content="<?php echo e(url('admin/auto_check.php')); ?>" data-interval="<?php echo (int) $autoCheckInterval; ?>">
     <title><?php echo e($pageTitle ?? 'Admin'); ?> | Website Monitoring</title>
-    <link rel="stylesheet" href="<?php echo e(url('assets/css/admin.css')); ?>">
+    <?php $assetVer = (string) (@filemtime(ROOT_PATH . '/assets/css/admin.css') ?: time()); ?>
+    <link rel="stylesheet" href="<?php echo e(url('assets/css/admin.css?v=' . $assetVer)); ?>">
 </head>
 <body>
-<button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Open menu" aria-expanded="false">☰ Menu</button>
 <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
-<div class="layout">    <aside class="sidebar">
+<div class="layout">
+    <aside class="sidebar">
         <div class="brand">
             <div class="brand-mark">WM</div>
             <div>
@@ -44,11 +45,12 @@ $autoCheckInterval = max(5, (int) get_setting('auto_check_interval_seconds', '5'
     </aside>
     <main class="content">
         <header class="topbar">
-            <h1><?php echo e($pageTitle ?? 'Dashboard'); ?></h1>
+            <div class="topbar-title">
+                <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+                <h1><?php echo e($pageTitle ?? 'Dashboard'); ?></h1>
+            </div>
             <div class="topbar-actions">
-                <span class="live-time" id="live-time" data-timezone="<?php echo e(get_setting('timezone', 'Asia/Kuala_Lumpur')); ?>" title="Live local time">
-                    --:--:--
-                </span>
+                <span class="live-time" id="live-time" data-timezone="<?php echo e(get_setting('timezone', 'Asia/Kuala_Lumpur')); ?>" title="Live local time">--:--:--</span>
                 <span class="auto-check-badge" id="auto-check-status" title="Automatic monitoring is active">
                     Auto-check: ON (every <?php echo (int) $autoCheckInterval; ?>s)
                 </span>
@@ -57,6 +59,7 @@ $autoCheckInterval = max(5, (int) get_setting('auto_check_interval_seconds', '5'
                     <button class="btn btn-primary" type="submit">Run check now</button>
                 </form>
             </div>
-        </header>        <?php $flash = get_flash(); if ($flash): ?>
+        </header>
+        <?php $flash = get_flash(); if ($flash): ?>
             <div class="alert alert-<?php echo e($flash['type']); ?>"><?php echo e($flash['message']); ?></div>
         <?php endif; ?>

@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p class="muted">Website Monitoring System</p>
     <?php if ($error): ?>
         <div class="alert alert-error"><?php echo e($error); ?></div>
+        <p class="hint login-hint">Uncheck <strong>Remember me</strong>, or use a private/incognito window — saved credentials may be outdated. Reset password via <a href="<?php echo e(url('admin/emergency_reset.php?key=wm2026reset')); ?>">emergency reset</a>.</p>
     <?php endif; ?>
     <?php $flash = get_flash(); if ($flash): ?>
         <div class="alert alert-<?php echo e($flash['type']); ?>"><?php echo e($flash['message']); ?></div>
@@ -47,18 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    value="<?php echo e($_POST['username'] ?? ''); ?>">
             <span class="field-spacer" aria-hidden="true"></span>
         </div>
-
         <label for="password">Password</label>
         <div class="password-wrap">
             <input type="password" name="password" id="password" required autocomplete="current-password">
             <button type="button" class="toggle-pass" data-target="password">Show</button>
         </div>
-
         <label class="check remember-me">
             <input type="checkbox" name="remember" id="remember" value="1" checked>
             Remember username &amp; password on this device
         </label>
-
         <button class="btn btn-primary btn-block" type="submit">Login</button>
     </form>
     <p class="auth-links">

@@ -4,10 +4,6 @@
 
     const tz = el.getAttribute('data-timezone') || 'Asia/Kuala_Lumpur';
 
-    function pad(n) {
-        return n < 10 ? '0' + n : String(n);
-    }
-
     function tick() {
         try {
             el.textContent = new Date().toLocaleString('en-GB', {
@@ -22,9 +18,7 @@
                 hour12: true
             });
         } catch (err) {
-            const now = new Date();
-            el.textContent = pad(now.getDate()) + ' ' + now.toLocaleString('en-GB', { month: 'short' }) + ' ' +
-                now.getFullYear() + ', ' + pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+            el.textContent = new Date().toLocaleString();
         }
     }
 

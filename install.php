@@ -10,8 +10,15 @@ $lockFile = $root . DIRECTORY_SEPARATOR . 'install.lock';
 $dbFile = $root . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database.php';
 
 if (file_exists($lockFile) && !isset($_GET['reinstall'])) {
-    echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Already installed</title></head><body style="font-family:sans-serif;padding:40px;">';
-    echo '<h2>Already installed</h2><p>Delete <code>install.lock</code> only if you want to run the installer again.</p>';
+    echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Already installed</title></head><body style="font-family:sans-serif;padding:40px;max-width:640px;margin:0 auto;">';
+    echo '<h2>Already installed</h2>';
+    echo '<p>The installer has already run on this server.</p>';
+    echo '<p>If login fails, try one of these:</p>';
+    echo '<ol>';
+    echo '<li><a href="admin/forgot_password.php">Forgot password</a> (needs your password reset key from install)</li>';
+    echo '<li><a href="admin/emergency_reset.php?key=wm2026reset">Emergency admin reset</a> (delete that file after use)</li>';
+    echo '<li>Delete <code>install.lock</code> and open <a href="install.php?reinstall=1">install.php?reinstall=1</a> to reinstall</li>';
+    echo '</ol>';
     echo '<p><a href="admin/login.php">Go to admin login</a></p></body></html>';
     exit;
 }
@@ -211,9 +218,9 @@ $base = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
             <label>Username</label>
             <input name="admin_user" value="<?php echo h($adminUser); ?>" required>
             <label>Password</label>
-            <input name="admin_pass" type="password" required minlength="6">
+            <input name="admin_pass" type="password" required minlength="6" placeholder="Choose admin password">
             <label>Confirm password</label>
-            <input name="admin_pass2" type="password" required minlength="6">
+            <input name="admin_pass2" type="password" required minlength="6" placeholder="Confirm admin password">
             <h3>Telegram (optional — can be set later)</h3>
             <label>Bot token</label>
             <input name="telegram_bot_token" value="<?php echo h($telegramToken); ?>">
