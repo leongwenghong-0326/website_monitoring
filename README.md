@@ -235,7 +235,8 @@ Default timezone is `Asia/Kuala_Lumpur` (configurable in **Settings**).
 - Sessions are used after login
 - `config/` and `includes/` are blocked by `.htaccess`
 - The cron script requires a secret key when opened in a browser
-- Do not commit production database credentials
+- Real credentials are gitignored: `config/database.php`, `config/telegram.php`, and `install.lock`
+- Use `config/database.example.php` and `config/telegram.example.php` as templates
 
 To reinstall: delete `install.lock`, drop the `website_monitoring` database in phpMyAdmin, then open the installer again.
 

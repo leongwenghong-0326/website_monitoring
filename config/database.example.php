@@ -1,11 +1,12 @@
 <?php
 /**
- * Database connection (PDO).
+ * Copy this file to database.php and fill in your MySQL credentials.
+ * database.php is gitignored — never commit real passwords.
  */
 $db_host = 'localhost';
 $db_name = 'website_monitoring';
 $db_user = 'root';
-$db_pass = 'Hong2007';
+$db_pass = '';
 $db_charset = 'utf8mb4';
 
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset={$db_charset}";
